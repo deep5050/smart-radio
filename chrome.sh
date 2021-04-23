@@ -18,3 +18,5 @@ unzip ./chromedriver_linux64.zip -d ./driver
 rm ./chromedriver_linux64.zip
 chmod +x ./driver/chromedriver
 
+# deleting chrome executable
+rm google-chrome-stable_current_amd64.deb
