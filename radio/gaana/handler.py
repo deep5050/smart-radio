@@ -27,6 +27,7 @@ def signal_handler(sig, frame):
     log.info("Saving songs information before quitting")
 
     with open("tracks.txt", "w") as f:
+        f.write("Title\tAlbum/Artist(s)\n")
         for index in range(0, len(track_list)):
             f.write(
                 "{}\t{}\n".format(
