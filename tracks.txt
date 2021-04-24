@@ -1,0 +1,6 @@
+Title		|		Album/Artist(s)
+{'title': 'Mohabbat Ho Na Jaye (Dekha Jo Tumko)', 'artists_or_album': 'Kasoor'}
+{'title': 'Filhaal', 'artists_or_album': 'Filhaal'}
+{'title': 'Koi Kahe Kehta Rahe', 'artists_or_album': 'Dil Chahta Hai'}
+{'title': 'Aye Udi Udi Udi', 'artists_or_album': 'Saathiya'}
+{'title': 'Ande Ka Phanda', 'artists_or_album': 'Jodi No.1'}

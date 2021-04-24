@@ -9,8 +9,24 @@ import sys
 
 track_list = []
 
-browser = Chrome()
-browser.maximize_window()
+browser = None
+
+
+def open_browser(visible):
+    global browser
+    _options = Options()
+
+    if not visible:
+        _options.add_argument("--headless")
+        log.debug("Browser started in headless mode")
+        _options.add_argument("window-size=1024x768")
+        log.debug("Browser window size: 1024x768")
+
+    browser = Chrome(options=_options)
+
+    # if not visible:
+    #     browser.maximize_window()
+    #     log.debug("Browser window maximized")
 
 
 global ctrl_c_exit
@@ -19,21 +35,22 @@ ctrl_c_exit = Event()
 
 def close_browser():
     global browser
-    # browser.close()
     browser.quit()
+    log.debug("Browser closed")
 
 
 def signal_handler(sig, frame):
-    log.info("Saving songs information before quitting")
+    log.info("\nSaving songs information before quitting")
 
     with open("tracks.txt", "w") as f:
-        f.write("Title\tAlbum/Artist(s)\n")
+        # f.write("Title\t\t|\t\tAlbum/Artist(s)\n")
         for index in range(0, len(track_list)):
-            f.write(
-                "{}\t{}\n".format(
-                    track_list[index]["title"], track_list[index]["artists_or_album"]
-                )
-            )
+            # f.write(
+            #     "{}\t\t|\t\t{}\n".format(
+            #         track_list[index]["title"], track_list[index]["artists_or_album"]
+            #     )
+            # )
+            f.write("{}\n".format(str(track_list[index])))
         f.close()
 
     close_browser()
@@ -44,20 +61,20 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 # signal.pause()
 
-# import radio.trackinfo.trackinfo as tracks
-# from radio.trackinfo.trackinfo import track_list
 
-# from radio.radio import ctrl_c_exit
-
-
-# from fake_useragent import UserAgent
-
-
-def generic_handler(URL, station, default_title):
+def generic_handler(URL, station, default_title, visible=False):
+    open_browser(visible)
     global browser
     global track
     global track_list
-    browser.get(URL)
+
+    try:
+        browser.get(URL)
+    except Exception as e:
+        log.critical(e)
+        browser.quit()
+        sys.exit(0)
+
     _title = None
     _artists_or_album = None
 
@@ -65,7 +82,7 @@ def generic_handler(URL, station, default_title):
         # get the big play button and click
         big_play_button = browser.find_element_by_xpath("//a[@id='p-list-play_all']")
         big_play_button.click()
-        log.debug("clicked on the play button")
+        log.info("Playing now")
 
         # sleeping for 3 senconds just to load everything properly (specially the track info),
         # depends on the network speed
@@ -73,11 +90,13 @@ def generic_handler(URL, station, default_title):
 
         last_track_title = ""
 
-        while not ctrl_c_exit.is_set():
+        # while not ctrl_c_exit.is_set():
+        while True:
             _title = browser.find_element_by_xpath("//h3[@id='stitle']").text
             _artists_or_album = browser.find_element_by_xpath("//p[@id='atitle']").text
 
             if _title == default_title:
+                log.debug("Skipping default title")
                 # skip station default audio ? IDN what is it called LOL :)
                 continue
 
@@ -87,7 +106,7 @@ def generic_handler(URL, station, default_title):
                 # track.clear_info()
                 # tracks.track.set_track_info(_title, _artists_or_album)
                 # tracks.track.append_to_list()
-                log.debug(
+                log.info(
                     "Song => title: {}, artist(s)/album: {}".format(
                         _title, _artists_or_album
                     )
@@ -96,17 +115,15 @@ def generic_handler(URL, station, default_title):
                 track_list.append(
                     {"title": _title, "artists_or_album": _artists_or_album}
                 )
-            # print(len(track_list))
-
             last_track_title = _title
 
-            # checking for new track after every 2 minutes
+            # checking for new track after every 30 seconds
             # TODO: other approach to see the chenges in track
 
-            ctrl_c_exit.wait(30)
-
+            # ctrl_c_exit.wait(30)
+            sleep(30)
         # at this point we should close the browser
-        close_browser()
+        # close_browser()
 
     except Exception as e:
         log.critical(str(e))
@@ -114,14 +131,91 @@ def generic_handler(URL, station, default_title):
         sys.exit(0)
 
 
-def pehla_nasha_handler():
-    log.info("Starting radio mirchi pehla nasha")
-    generic_handler("https://gaana.com/radio/mirchiplay-pehlanasha", "pehla_nasha")
+def pehla_nasha_handler(visible):
+    log.info("Starting radio: Mirchi pehla nasha")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-pehlanasha",
+        "pehla_nasha",
+        "Mirchi Play Started...",
+        visible,
+    )
 
 
-def meethi_mirchi_handler():
+def meethi_mirchi_handler(visible):
+    log.info("Starting radio: Meethi mirchi")
     generic_handler(
         "https://gaana.com/radio/mirchiplay-meethi-mirchi",
         "meethi_mirchi",
         "Mirchi Play Started...",
+        visible,
+    )
+
+
+def english_love_handler(visible):
+    log.info("Starting radio: Mirchi english love")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-english-love",
+        "english_love",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def ranbindra_sangeet_handler(visible):
+    log.info("Starting radio: Mirchi ranbindra sangeet")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-rabindra-sangeet",
+        "rabindra_sangeet",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def toota_dil_handler(visible):
+    log.info("Starting radio: Mirchi toota dil")
+    generic_handler(
+        "https://gaana.com/radio/mirchi-toota-dil",
+        "toota_dil",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def filmy_mirchi_handler(visible):
+    log.info("Starting radio: Filmy mirchi")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-filmy-mirchi",
+        "filmy_mirchi",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def international_hits_handler(visible):
+    log.info("Starting radio: Mirchi nternational hits")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-international-hits",
+        "international_hits",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def english_retro_hits_handler(visible):
+    log.info("Starting radio: Mirchi english retro hits")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-english-retro",
+        "english_retro",
+        "Mirchi Play Started...",
+        visible,
+    )
+
+
+def mirchi_90s_handler(visible):
+    log.info("Starting radio: Mirchi 90s")
+    generic_handler(
+        "https://gaana.com/radio/mirchiplay-mirchi-90s",
+        "mirchi_90s",
+        "Mirchi Play Started...",
+        visible,
     )
