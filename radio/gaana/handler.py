@@ -41,15 +41,8 @@ def close_browser():
 
 def signal_handler(sig, frame):
     log.info("\nSaving songs information before quitting")
-
     with open("tracks.txt", "w") as f:
-        # f.write("Title\t\t|\t\tAlbum/Artist(s)\n")
         for index in range(0, len(track_list)):
-            # f.write(
-            #     "{}\t\t|\t\t{}\n".format(
-            #         track_list[index]["title"], track_list[index]["artists_or_album"]
-            #     )
-            # )
             f.write("{}\n".format(str(track_list[index])))
         f.close()
 
@@ -84,28 +77,24 @@ def generic_handler(URL, station, default_title, visible=False):
         big_play_button.click()
         log.info("Playing now")
 
-        # sleeping for 3 senconds just to load everything properly (specially the track info),
-        # depends on the network speed
+        # sleeping for 5 senconds just to load everything properly (specially the track info),
+        # depends on the network speed and broswer
+        
         sleep(5)
 
         last_track_title = ""
 
-        # while not ctrl_c_exit.is_set():
         while True:
             _title = browser.find_element_by_xpath("//h3[@id='stitle']").text
             _artists_or_album = browser.find_element_by_xpath("//p[@id='atitle']").text
 
             if _title == default_title:
-                log.debug("Skipping default title")
+                # log.debug("Skipping default title")
                 # skip station default audio ? IDN what is it called LOL :)
+                sleep(30)
                 continue
 
-            # tracks.track.clear_info()
-
             if _title != last_track_title:
-                # track.clear_info()
-                # tracks.track.set_track_info(_title, _artists_or_album)
-                # tracks.track.append_to_list()
                 log.info(
                     "Song => title: {}, artist(s)/album: {}".format(
                         _title, _artists_or_album
@@ -115,9 +104,11 @@ def generic_handler(URL, station, default_title, visible=False):
                 track_list.append(
                     {"title": _title, "artists_or_album": _artists_or_album}
                 )
+
             last_track_title = _title
 
             # checking for new track after every 30 seconds
+            # checking frequently because 
             # TODO: other approach to see the chenges in track
 
             # ctrl_c_exit.wait(30)
@@ -133,6 +124,7 @@ def generic_handler(URL, station, default_title, visible=False):
 
 def pehla_nasha_handler(visible):
     log.info("Starting radio: Mirchi pehla nasha")
+    log.warn("Can not fecth song information from this station")
     generic_handler(
         "https://gaana.com/radio/mirchiplay-pehlanasha",
         "pehla_nasha",
