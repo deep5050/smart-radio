@@ -1,6 +1,7 @@
 import argparse
-import sys
 import signal
+import sys
+
 from zenlog import log
 
 
@@ -88,7 +89,7 @@ if handler is None:
     sys.exit(0)
 
 if handler == "gaana":
-    from radio.radio import gaana, Gaana
+    from radio.radio import Gaana, gaana
 
     target_station = Gaana.__getattribute__(gaana, station_id)
     target_station(results.visible)

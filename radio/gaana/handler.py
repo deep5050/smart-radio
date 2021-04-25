@@ -1,11 +1,11 @@
-from threading import Event
-from zenlog import log
 import signal
+import sys
+from threading import Event
+from time import sleep
+
 from selenium.webdriver import Chrome
 from selenium.webdriver.chrome.options import Options
-from time import sleep
-import sys
-
+from zenlog import log
 
 track_list = []
 
