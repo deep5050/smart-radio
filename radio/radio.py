@@ -1,6 +1,6 @@
 # import radio.gaana.handler as gaana_handler
-from zenlog import log
 from threading import Event
+from zenlog import log
 
 import radio.gaana.handler as gaana_handler
 from radio.gaana.handler import pehla_nasha_handler as gaana_pehla_nasha
@@ -15,11 +15,6 @@ from radio.gaana.handler import mirchi_90s_handler as gaana_mirchi_90s
 
 
 current_radio = None
-# global ctrl_c_exit
-
-# def init_ctrl_c():
-#     global ctrl_c_exit
-#     ctrl_c_exit = Event()
 
 
 def close_current_radio():

@@ -1,32 +1,19 @@
-from threading import Event
-from zenlog import log
-import signal
-from selenium.webdriver import Chrome
-from selenium.webdriver.chrome.options import Options
-from time import sleep
 import sys
+import signal
+from threading import Event
+from time import sleep
+from radio.browser.browser import Browser
+from zenlog import log
 
 
 track_list = []
-
 browser = None
 
 
 def open_browser(visible):
     global browser
-    _options = Options()
-
-    if not visible:
-        _options.add_argument("--headless")
-        log.debug("Browser started in headless mode")
-        _options.add_argument("window-size=1024x768")
-        log.debug("Browser window size: 1024x768")
-
-    browser = Chrome(options=_options)
-
-    # if not visible:
-    #     browser.maximize_window()
-    #     log.debug("Browser window maximized")
+    # create a browser object here
+    browser = Browser(visible)
 
 
 global ctrl_c_exit
@@ -46,7 +33,7 @@ def signal_handler(sig, frame):
             f.write("{}\n".format(str(track_list[index])))
         f.close()
 
-    close_browser()
+    browser.close_browser()
     ctrl_c_exit.set()
     sys.exit(0)
 
@@ -62,10 +49,10 @@ def generic_handler(URL, station, default_title, visible=False):
     global track_list
 
     try:
-        browser.get(URL)
+        browser.load_url(URL)
     except Exception as e:
         log.critical(e)
-        browser.quit()
+        browser.close_browser()
         sys.exit(0)
 
     _title = None
@@ -73,20 +60,25 @@ def generic_handler(URL, station, default_title, visible=False):
 
     try:
         # get the big play button and click
-        big_play_button = browser.find_element_by_xpath("//a[@id='p-list-play_all']")
+        big_play_button = browser.chrome.find_element_by_xpath(
+            "//a[@id='p-list-play_all']"
+        )
         big_play_button.click()
         log.info("Playing now")
 
-        # sleeping for 5 senconds just to load everything properly (specially the track info),
+        # sleeping for 5 senconds just to load everything properly 
+        # (specially the track info),
         # depends on the network speed and broswer
-        
+
         sleep(5)
 
         last_track_title = ""
 
         while True:
-            _title = browser.find_element_by_xpath("//h3[@id='stitle']").text
-            _artists_or_album = browser.find_element_by_xpath("//p[@id='atitle']").text
+            _title = browser.chrome.find_element_by_xpath("//h3[@id='stitle']").text
+            _artists_or_album = browser.chrome.find_element_by_xpath(
+                "//p[@id='atitle']"
+            ).text
 
             if _title == default_title:
                 # log.debug("Skipping default title")
@@ -108,7 +100,7 @@ def generic_handler(URL, station, default_title, visible=False):
             last_track_title = _title
 
             # checking for new track after every 30 seconds
-            # checking frequently because 
+            # checking frequently because
             # TODO: other approach to see the chenges in track
 
             # ctrl_c_exit.wait(30)
@@ -118,7 +110,7 @@ def generic_handler(URL, station, default_title, visible=False):
 
     except Exception as e:
         log.critical(str(e))
-        close_browser()
+        browser.close_browser()
         sys.exit(0)
 
 
