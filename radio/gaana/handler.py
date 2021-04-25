@@ -73,7 +73,8 @@ def generic_handler(URL, station, default_title, visible=False):
 
     try:
         # get the big play button and click
-        big_play_button = browser.find_element_by_xpath("//a[@id='p-list-play_all']")
+        big_play_button = browser.find_element_by_xpath(
+            "//a[@id='p-list-play_all']")
         big_play_button.click()
         log.info("Playing now")
 
@@ -86,7 +87,8 @@ def generic_handler(URL, station, default_title, visible=False):
 
         while True:
             _title = browser.find_element_by_xpath("//h3[@id='stitle']").text
-            _artists_or_album = browser.find_element_by_xpath("//p[@id='atitle']").text
+            _artists_or_album = browser.find_element_by_xpath(
+                "//p[@id='atitle']").text
 
             if _title == default_title:
                 # log.debug("Skipping default title")
@@ -95,15 +97,13 @@ def generic_handler(URL, station, default_title, visible=False):
                 continue
 
             if _title != last_track_title:
-                log.info(
-                    "Song => title: {}, artist(s)/album: {}".format(
-                        _title, _artists_or_album
-                    )
-                )
+                log.info("Song => title: {}, artist(s)/album: {}".format(
+                    _title, _artists_or_album))
 
-                track_list.append(
-                    {"title": _title, "artists_or_album": _artists_or_album}
-                )
+                track_list.append({
+                    "title": _title,
+                    "artists_or_album": _artists_or_album
+                })
 
             last_track_title = _title
 

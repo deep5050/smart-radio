@@ -8,15 +8,42 @@ from zenlog import log
 class Stations:
     def __init__(self):
         self.entries = [
-            {"id": "pehla_nasha", "handler": "gaana"},
-            {"id": "meethi_mirchi", "handler": "gaana"},
-            {"id": "english_love", "handler": "gaana"},
-            {"id": "rabindra_sangeet", "handler": "gaana"},
-            {"id": "toota_dil", "handler": "gaana"},
-            {"id": "filmy_mirchi", "handler": "gaana"},
-            {"id": "international_hits", "handler": "gaana"},
-            {"id": "english_retro_hits", "handler": "gaana"},
-            {"id": "mirchi_90s", "handler": "gaana"},
+            {
+                "id": "pehla_nasha",
+                "handler": "gaana"
+            },
+            {
+                "id": "meethi_mirchi",
+                "handler": "gaana"
+            },
+            {
+                "id": "english_love",
+                "handler": "gaana"
+            },
+            {
+                "id": "rabindra_sangeet",
+                "handler": "gaana"
+            },
+            {
+                "id": "toota_dil",
+                "handler": "gaana"
+            },
+            {
+                "id": "filmy_mirchi",
+                "handler": "gaana"
+            },
+            {
+                "id": "international_hits",
+                "handler": "gaana"
+            },
+            {
+                "id": "english_retro_hits",
+                "handler": "gaana"
+            },
+            {
+                "id": "mirchi_90s",
+                "handler": "gaana"
+            },
         ]
 
     def is_valid(self, _id):
@@ -35,7 +62,8 @@ class Stations:
 stations = Stations()
 
 parser = argparse.ArgumentParser(
-    description="Play radio from the CLI and save songs information to check them later",
+    description=
+    "Play radio from the CLI and save songs information to check them later",
     prog="SMART-RADIO",
 )
 
@@ -81,7 +109,6 @@ if station_id is None:
 
 log.debug("Station id: " + station_id)
 log.debug("Visibility: " + str(results.visible))
-
 
 handler = stations.get_handler(station_id)
 if handler is None:
