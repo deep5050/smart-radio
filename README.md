@@ -86,7 +86,7 @@ More coming soon .....
 
 #### MAC
 
-I'm not that rich LOL :smile:  
+I'm not that rich LOL :smile:
 Must be same !
 
 ### License
