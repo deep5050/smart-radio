@@ -34,7 +34,7 @@ class Stations:
 stations = Stations()
 
 parser = argparse.ArgumentParser(
-    description="play radio from the CLI and save songs information to check them later",
+    description="Play radio from the CLI and save songs information to check them later",
     prog="SMART-RADIO",
 )
 
@@ -92,31 +92,3 @@ if handler == "gaana":
 
     target_station = Gaana.__getattribute__(gaana, station_id)
     target_station(results.visible)
-
-
-# gaana.meethi_mirchi()
-
-
-# from radio.radio import init_ctrl_c
-# import radio.trackinfo.trackinfo as tracks
-
-# from radio.gaana.handler import ctrl_c_exit
-
-
-# def signal_handler(sig, frame):
-#     log.info("saving songs information before quitting")
-#     # close_current_radio()
-#     ctrl_c_exit.set()
-
-#     # print all played tracks during he session
-#     print(tracks.track_list)
-
-#     sys.exit(0)
-
-
-# signal.signal(signal.SIGINT, signal_handler)
-# signal.pause()
-
-# if __name__ == "main":
-#     print("hmm")
-#     gaana.meethi_mirchi()
