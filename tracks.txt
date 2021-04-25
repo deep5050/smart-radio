@@ -1,0 +1,7 @@
+{'title': 'Jane De,jane De,mujhe Jane De', 'artists_or_album': 'Shola Aur Shabnam'}
+{'title': 'Pehli Baar Mile Hain', 'artists_or_album': 'Saajan'}
+{'title': 'Chalte Chalte', 'artists_or_album': 'Mohabbatein'}
+{'title': 'Hum Aapke Dil Mein Rehte Hain', 'artists_or_album': 'Hum Aapke Dil Mein Rehte Hain'}
+{'title': 'Odh Li Chunariya Tere Naam Ki', 'artists_or_album': 'Pyaar Kiya To Darna Kya'}
+{'title': 'Rimjhim Rimjhim', 'artists_or_album': '1942 A Love Story'}
+{'title': 'Deewane To Deewane Hain', 'artists_or_album': 'Deewane To Deewane Hain'}
