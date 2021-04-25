@@ -73,20 +73,22 @@ def generic_handler(URL, station, default_title, visible=False):
 
     try:
         # get the big play button and click
-        big_play_button = browser.find_element_by_xpath("//a[@id='p-list-play_all']")
+        big_play_button = browser.find_element_by_xpath(
+            "//a[@id='p-list-play_all']")
         big_play_button.click()
         log.info("Playing now")
 
         # sleeping for 5 senconds just to load everything properly (specially the track info),
         # depends on the network speed and broswer
-        
+
         sleep(5)
 
         last_track_title = ""
 
         while True:
             _title = browser.find_element_by_xpath("//h3[@id='stitle']").text
-            _artists_or_album = browser.find_element_by_xpath("//p[@id='atitle']").text
+            _artists_or_album = browser.find_element_by_xpath(
+                "//p[@id='atitle']").text
 
             if _title == default_title:
                 # log.debug("Skipping default title")
@@ -108,7 +110,7 @@ def generic_handler(URL, station, default_title, visible=False):
             last_track_title = _title
 
             # checking for new track after every 30 seconds
-            # checking frequently because 
+            # checking frequently because
             # TODO: other approach to see the chenges in track
 
             # ctrl_c_exit.wait(30)
