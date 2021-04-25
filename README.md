@@ -2,7 +2,6 @@
 <img align=center src=images/logo.png>
 <h1 align=center>SMART - RADIO </h1>
 <p align=center> Play online radios from terminal (on RaspBerry Pi too) and save songs information to check them later </p>
-
 </div>
 
 ### Why use?
@@ -116,4 +115,6 @@ SOFTWARE.
 <div align=center>
 <img src=images/footer.png>
 <p align=center> Happy Listening </p>
+<p align=center><img align=center  src="https://visitor-badge.laobi.icu/badge?page_id=deep5050.smart-radio" alt="Visitors">  </p>
+
 </div>
