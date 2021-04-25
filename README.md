@@ -1,5 +1,5 @@
 <div align=center>
-
+<img align=center src=images/logo.png>
 <h1 align=center>SMART - RADIO </h1>
 <p align=center> Play online radios from terminal (on RaspBerry Pi too) and save songs information to check them later </p>
 
@@ -105,3 +105,15 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+## Acknowledgements
+### Icons
+<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
+<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+<div align=center>
+<img src=images/footer.png>
+<p align=center> Happy Listening </p>
+</div>
