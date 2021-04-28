@@ -1,8 +1,11 @@
+###  For the same app with low memory usage check [RADIO-ACTIVE](https://github.com/deep5050/radio-active)
+
 <div align=center>
 <img align=center src=images/logo.png>
 <h1 align=center>SMART - RADIO </h1>
 <p align=center> Play online radios from terminal (on RaspBerry Pi too) and save songs information to check them later </p>
 </div>
+
 
 ### Why use?
 
